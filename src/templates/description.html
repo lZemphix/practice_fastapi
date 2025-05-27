@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title_css %}
+    <title>Детали акции</title>
+    <link rel="stylesheet" href="/static/css/description.css">
+{% endblock title_css %}
+
+{% block main_content %}
+        <div class="discount-container">
+
+        <div class="discount-main">
+            <img src="/static/images/{{ description.image }}" alt="Скидка" class="discount-image">
+            
+            <div class="discount-info">
+                <h1 class="discount-title">{{ description.short_description }}</h1>
+                
+                {% if description.promocode %}
+                    <div class="promo-code">
+                        <span class="promo-text">Ваш промокод:</span>
+                        <span class="promo-value">{{ description.promocode }}</span>
+                    </div>
+                {% endif %}
+
+                <!-- Информационные блоки -->
+                <div class="info-grid">
+                    <div class="info-block">
+                        <h3>Как получить</h3>
+                        <p>{{ description.full_description }}</p>
+
+                    </div>
+                    <div class="info-block">
+                        <h3>Срок действия</h3>
+                        <p>{{ description.validity_period }}</p>
+                    </div>
+                    <div class="info-block">
+                        <h3>О партнере</h3>
+                        <p>{{ description.partner }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Другие акции -->
+        <h2 class="related-title">Другие акции</h2>
+        <div class="related-tiles">
+            <!-- Повторите плитки как в предыдущем примере -->
+            <div class="tiles-container">
+            {% for discount in discounts %}
+                <a class="tile" href="/discounts/{{ discount.id }}" style="text-decoration: none;">
+                    <div class="partner-image" style="background-image: url('/static/images/{{ discount.image }}')"></div>
+                    <h3>{{ discount.name }}</h3>
+                    <p>{{ discount.short_description }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main_content %}
