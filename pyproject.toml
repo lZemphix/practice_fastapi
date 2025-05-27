@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "fastapi-practice"
+version = "0.1.0"
+description = ""
+authors = ["Zemphix <vafinaaa51@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "fastapi_practice"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.2"
+python-dotenv = "^1.1.0"
+jinja2 = "^3.1.6"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.41"}
+pydantic-settings = "^2.9.1"
+asyncpg = "^0.30.0"
+python-multipart = "^0.0.20"
+alembic = "^1.16.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
