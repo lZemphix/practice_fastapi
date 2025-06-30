@@ -1,0 +1,30 @@
+listener:
+  slotName: listener
+  refreshConnection: 30s
+  heartbeatInterval: 30s
+  filter:
+    tables:
+      discounts:
+        - insert
+        - update
+        - delete
+  topicsMap:
+    schema_table_name: "wal_listener"
+logger:
+  level: info
+  fmt: json
+database:
+  host: host
+  port: 5432
+  name: db_name
+  user: user
+  password: password
+  debug: false
+publisher:
+  type: rabbitmq
+  address: amqp://rabbitmq:5672
+  topic: "wal_listener"
+  topicPrefix: ""
+monitoring:
+  sentryDSN: ""
+  promAddr: ":2221"
