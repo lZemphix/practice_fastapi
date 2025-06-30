@@ -327,6 +327,24 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "sqladmin"
+version = "0.20.1"
+description = "SQLAlchemy admin for FastAPI and Starlette"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+jinja2 = "*"
+python-multipart = "*"
+sqlalchemy = ">=1.4"
+starlette = "*"
+wtforms = ">=3.1,<3.2"
+
+[package.extras]
+full = ["itsdangerous"]
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.41"
 description = "Database Abstraction Library"
@@ -411,10 +429,24 @@ h11 = ">=0.8"
 [package.extras]
 standard = ["colorama (>=0.4)", "httptools (>=0.6.3)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "uvloop (>=0.14.0,!=0.15.0,!=0.15.1)", "watchfiles (>=0.13)", "websockets (>=10.4)"]
 
+[[package]]
+name = "wtforms"
+version = "3.1.2"
+description = "Form validation and rendering for Python web development."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+markupsafe = "*"
+
+[package.extras]
+email = ["email-validator"]
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.13"
-content-hash = "1df34950ee50156411edab398516954f104189fad940fc672cf5a9180d9cd45e"
+content-hash = "75c0ab9996fa2feb16c00d56c69e6106c114fd1bc1173c195e2890554deefd37"
 
 [metadata.files]
 alembic = [
@@ -830,6 +862,10 @@ sniffio = [
     {file = "sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2"},
     {file = "sniffio-1.3.1.tar.gz", hash = "sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc"},
 ]
+sqladmin = [
+    {file = "sqladmin-0.20.1-py3-none-any.whl", hash = "sha256:82310bb5b4cc2563494e42a03ef0b269030d78f6df4f6a331837f0f124d10dae"},
+    {file = "sqladmin-0.20.1.tar.gz", hash = "sha256:b6cc6df648a8a05f7baa57cd5fc236cf0729d0bb27b0a33ced150e956fa68437"},
+]
 sqlalchemy = [
     {file = "SQLAlchemy-2.0.41-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:6854175807af57bdb6425e47adbce7d20a4d79bbfd6f6d6519cd10bb7109a7f8"},
     {file = "SQLAlchemy-2.0.41-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:05132c906066142103b83d9c250b60508af556982a385d96c4eaa9fb9720ac2b"},
@@ -904,4 +940,8 @@ typing-inspection = [
 uvicorn = [
     {file = "uvicorn-0.34.2-py3-none-any.whl", hash = "sha256:deb49af569084536d269fe0a6d67e3754f104cf03aba7c11c40f01aadf33c403"},
     {file = "uvicorn-0.34.2.tar.gz", hash = "sha256:0e929828f6186353a80b58ea719861d2629d766293b6d19baf086ba31d4f3328"},
+]
+wtforms = [
+    {file = "wtforms-3.1.2-py3-none-any.whl", hash = "sha256:bf831c042829c8cdbad74c27575098d541d039b1faa74c771545ecac916f2c07"},
+    {file = "wtforms-3.1.2.tar.gz", hash = "sha256:f8d76180d7239c94c6322f7990ae1216dae3659b7aa1cee94b6318bdffb474b9"},
 ]
