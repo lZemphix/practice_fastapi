@@ -4,17 +4,41 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/practice
-    depends_on:
-      db:
-        condition: service_healthy
+      DB_USER: ${DATABASE_USER}
+      DB_PASSWORD: ${DATABASE_PASSWORD} 
+      DB_HOST: ${DATABASE_HOST}
+      DB_NAME:  ${DATABASE_NAME}
 
-  db:
+    depends_on:
+      postgres:
+        condition: service_healthy
+      wal-listener:
+        condition: service_started
+    networks:
+      - app-network
+    
+  consumer:
+    build: 
+      context: ./rabbitmq/
+    environment:
+      TELEGRAM_BOT_ID: ${TELEGRAM_BOT_ID}
+      TELEGRAM_USER_ID: ${TELEGRAM_USER_ID}
+      RMQ_QUEUE_NAME: ${RMQ_QUEUE_NAME}
+      RMQ_EXCHANGE_NAME: ${RMQ_EXCHANGE_NAME}
+      RMQ_RK: ${RMQ_RK}
+    networks:
+      - app-network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    command: ["python", "-u", "src/consumer.py"]
+
+  postgres:
     image: postgres:13
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: practice
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD} 
+      POSTGRES_DB: ${DATABASE_NAME}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d practice"]
       interval: 5s
@@ -22,6 +46,38 @@ services:
       retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    command: [ "postgres", "-c", "wal_level=logical" ]
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+  
+  wal-listener:
+    image: ihippik/wal-listener:latest
+    volumes:
+      - ./wal-config.yml:/app/config.yml
+    networks:
+      - app-network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
