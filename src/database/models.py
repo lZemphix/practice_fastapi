@@ -3,12 +3,6 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .core import Base
 
 
-class Category(Base):
-    __tablename__ = "categories"
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str] = mapped_column()
-
-
 class Discount(Base):
 
     __tablename__ = "discounts"
@@ -20,4 +14,12 @@ class Discount(Base):
     validity_period: Mapped[str] = mapped_column()
     partner: Mapped[str] = mapped_column()
     image: Mapped[str] = mapped_column()
-    category_id: Mapped[str] = mapped_column(ForeignKey("categories.id"))
+
+
+class User(Base):
+
+    __tablename__ = "users"
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    login: Mapped[str] = mapped_column()
+    password: Mapped[str] = mapped_column()
+    admin: Mapped[bool] = mapped_column()
