@@ -26,7 +26,6 @@ async def add_new_discount(
     validity_period: str,
     partner: str,
     image: str,
-    category: int,
 ):
     async with async_session() as session:
         discount = Discount(
@@ -37,7 +36,6 @@ async def add_new_discount(
             validity_period=validity_period,
             partner=partner,
             image=image,
-            category_id=category,
         )
         session.add(discount)
         await session.commit()

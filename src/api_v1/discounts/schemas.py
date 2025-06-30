@@ -10,7 +10,6 @@ class DiscountSchema(BaseModel):
     promocode: Optional[str] = None
     validity_period: str
     partner: str
-    category: int
 
 
 class DiscountSchemaImage(DiscountSchema):
