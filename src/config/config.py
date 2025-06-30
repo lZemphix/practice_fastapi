@@ -4,11 +4,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-class Settings(BaseSettings):
-    db_url: str = getenv("DATABASE_URL")
-    telegram_bot_id: str = getenv("TELEGRAM_BOT_ID")
-    telegram_user_id: int = getenv("TELEGRAM_USER_ID")
 
+class Settings(BaseSettings):
+    DB_USER: str = getenv("DATABASE_USER")
+    DB_PASSWORD: str = getenv("DATABASE_PASSWORD")
+    DB_HOST: str = getenv("DATABASE_HOST")
+    DB_NAME: str = getenv("DATABASE_NAME")
+
+    @property
+    def db_url(self):
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:5432/{self.DB_NAME}"
 
 
 settings = Settings()
