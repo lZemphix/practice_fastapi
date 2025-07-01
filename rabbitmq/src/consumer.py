@@ -44,5 +44,6 @@ class Consumer:
 
 if __name__ == "__main__":
     consumer = Consumer()
+    print('Cunsumer service was started')
     consumer.create_queue()
     consumer.start_consuming()
