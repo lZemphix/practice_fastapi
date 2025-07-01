@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     DB_HOST: str = getenv("DATABASE_HOST")
     DB_NAME: str = getenv("DATABASE_NAME")
 
+    ADMIN_USERNAME: str = getenv("ADMIN_USERNAME")
+    ADMIN_PASSWORD: str = getenv("ADMIN_PASSWORD")
+    ADMIN_SECRETKEY: str = getenv("ADMIN_SECRETKEY")
+
     @property
     def db_url(self):
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:5432/{self.DB_NAME}"
