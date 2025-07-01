@@ -8,6 +8,9 @@ services:
       DB_PASSWORD: ${DATABASE_PASSWORD} 
       DB_HOST: ${DATABASE_HOST}
       DB_NAME:  ${DATABASE_NAME}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_SECRETKEY: ${ADMIN_SECRETKEY}
 
     depends_on:
       postgres:
